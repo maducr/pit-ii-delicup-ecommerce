@@ -1,0 +1,285 @@
+/* static/css/style.css - CÓDIGO CSS COMPLETO E FINAL (Harmonizado) */
+
+/* PALETA DE CORES DO PROTÓTIPO (Salmão/Terra)
+   - Primária: #D87272 (Tom Salmão/Terra Forte)
+   - Secundária: #CC6677 (Tom Escuro para Destaque)
+*/
+
+/* === 1. ESTILOS GLOBAIS E BASE (BODY, HEADER E TIPOGRAFIA) === */
+
+body { 
+    font-family: Arial, sans-serif;
+    margin: 0; 
+    padding: 0;
+    background-color: #f7f7f7; 
+    color: #333;
+}
+
+header { 
+    background-color: #d87272; 
+    color: white; 
+    padding: 20px; 
+    text-align: center; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+header h1 { 
+    margin: 0; 
+    font-size: 1.8em;
+}
+header p { 
+    margin: 5px 0 15px 0; 
+}
+
+/* Links de Navegação (Header) */
+.nav-link {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+}
+.nav-link:hover {
+    text-decoration: underline;
+}
+.nav-welcome {
+    font-weight: bold;
+}
+
+/* Títulos */
+h2 {
+    text-align: center; 
+    margin-top: 30px; 
+    color: #cc6677; 
+    font-size: 1.6em;
+}
+
+/* === 2. ESTILOS DA VITRINE E CARDS (Layout de Aplicativo) === */
+
+.vitrine { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 25px; 
+    margin: 30px auto;
+    justify-content: center;
+    max-width: 1200px;
+}
+
+/* Estilo do Card de Produto */
+.cupcake-card {
+    background-color: white;
+    border: none; 
+    padding: 15px;
+    width: 280px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08); 
+    border-radius: 12px; 
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.cupcake-card h3 { 
+    color: #333; 
+    margin: 5px 0; 
+    font-size: 1.3em;
+}
+.cupcake-card p {
+    font-size: 0.9em;
+}
+
+/* Container Flexbox para Preço e Botão de Ação */
+.card-footer-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.price { 
+    font-weight: 900; 
+    color: #d87272; /* Harmonizado com a cor principal */
+    font-size: 1.6em;
+    margin: 0;
+}
+
+/* Botão de Adicionar Compacto ('+') */
+.btn-adicionar {
+    background-color: #d87272; 
+    color: white; 
+    border: none; 
+    padding: 5px 12px;
+    font-size: 1.5em; 
+    line-height: 1;
+    border-radius: 50%; 
+    cursor: pointer;
+    width: 40px; 
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+.btn-adicionar:hover {
+    background-color: #cc6677;
+}
+
+/* --- CORREÇÃO DE HARMONIZAÇÃO --- */
+
+/* 1. Removemos o link de Detalhes para focar na estética do App (Task 4.2.2) */
+.btn-detalhes {
+    display: none !important; /* Usamos !important para garantir que seja escondido */
+}
+
+/* 2. Ajuste fino na descrição para melhor leitura */
+.cupcake-card .descricao {
+    color: #666;
+    min-height: 40px;
+    margin-bottom: 10px;
+}
+
+/* === 3. ESTILOS DE AUTENTICAÇÃO E FORMULÁRIOS === */
+
+.form-container { 
+    max-width: 400px; 
+    margin: 50px auto; 
+    padding: 30px; 
+    background: white; 
+    border-radius: 10px; 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); 
+}
+
+.form-container h2 {
+    color: #d87272; 
+    margin-bottom: 25px;
+}
+
+.input-field { 
+    width: 100%; 
+    padding: 12px; 
+    border: 1px solid #ddd; 
+    border-radius: 6px; 
+    box-sizing: border-box; 
+}
+.input-field:focus {
+    border-color: #d87272;
+    outline: none;
+}
+
+.btn-submit { 
+    background-color: #d87272; 
+    color: white; 
+    padding: 14px 20px; 
+    margin: 25px 0 15px 0; 
+    border: none; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    width: 100%; 
+    font-size: 1.1em;
+    transition: background-color 0.3s;
+}
+.btn-submit:hover { 
+    background-color: #cc6677; 
+}
+
+.back-link { 
+    color: #d87272; 
+    text-decoration: none; 
+}
+
+/* === 4. ESTILOS DE CONFIRMAÇÃO DE PEDIDO E CARRINHO === */
+
+.confirmation-box { 
+    max-width: 600px; 
+    margin: 50px auto; 
+    padding: 40px; 
+    text-align: center; 
+    background: #e6ffe6; 
+    border: 2px solid #00cc00; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos do Carrinho */
+.carrinho-container { 
+    max-width: 800px; 
+    margin: 50px auto; 
+    padding: 30px; 
+    background: white; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+}
+
+.carrinho-container h2 {
+    text-align: left;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #cc6677;
+}
+
+.carrinho-item { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    border-bottom: 1px solid #ddd; 
+    padding: 15px 0; 
+    font-size: 1.1em;
+}
+
+.item-name {
+    font-weight: bold;
+    color: #333;
+    flex-grow: 1;
+}
+.item-price {
+    color: #cc6677;
+    font-weight: bold;
+}
+
+.item-quantity-box {
+    margin: 0 20px;
+    color: #555;
+    font-size: 0.9em;
+}
+
+.item-quantity {
+    font-weight: bold;
+    color: #d87272; /* Cor de destaque */
+    margin-left: 5px;
+}
+
+.total-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid #ccc; 
+    padding-top: 20px;
+    margin-top: 30px;
+}
+.total-value { 
+    font-size: 1.8em; 
+    font-weight: bold; 
+    color: #d87272; 
+    margin: 0;
+}
+
+/* === 5. ESTILOS FLASH (MENSAGENS) === */
+
+.flash-container {
+    margin-top: 10px; 
+    padding: 0 20px;
+    max-width: 1200px;
+    margin: 10px auto;
+}
+.flash-message {
+    padding: 10px; 
+    margin-bottom: 10px; 
+    border-radius: 4px; 
+    font-weight: bold;
+}
+.flash-success {
+    background-color: #d4edda; 
+    color: #155724; 
+    border: 1px solid #c3e6cb;
+}
+.flash-error {
+    background-color: #f8d7da; 
+    color: #721c24; 
+    border: 1px solid #ebccd1;
+}

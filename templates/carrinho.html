@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Meu Carrinho - DeliCup</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Seu Carrinho</h1>
+        <p>Revise seus itens antes de finalizar.</p>
+        <nav>
+                <span class="nav-welcome">Bem-vindo(a), {{ username }}!</span> |
+                <a href="{{ url_for('vitrine.home') }}" class="nav-link">Continuar Comprando</a> |
+                <a href="{{ url_for('auth.logout') }}" class="nav-link">Sair</a>
+                <a href="{{ url_for('vitrine.home') }}" class="nav-link">Voltar à Vitrine</a>
+        </nav>
+    </header>
+            <div class="flash-container">
+                    <div class="flash-message flash-{{ category }}">
+                    </div>
+            </div>
+    
+    <div class="carrinho-container">
+        <h2>Itens Selecionados</h2>
+            <a href="{{ url_for('compra.limpar_carrinho') }}" class="back-link" style="float: right; color: red;">Limpar Carrinho</a>
+            
+            <ul class="item-list">
+                    <li class="carrinho-item">
+                        <span class="item-name">{{ item.nome }}</span>
+                        <span class="item-quantity-box">
+                            Qtde: <span class="item-quantity">{{ item.quantidade }}</span>
+                        </span>
+                        
+                        <span class="item-price">R$ {{ "%.2f"|format(subtotal) }}</span>
+                    </li>
+            </ul>
+            
+            <div class="total-box">
+                <p class="total-label">Total:</p> 
+                <p class="total-value">R$ {{ "%.2f"|format(total) }}</p>
+            </div>
+            <form method="POST" action="{{ url_for('compra.finalizar_compra') }}" class="checkout-form">
+                <button type="submit" class="btn-submit">Finalizar Pedido</button>
+            </form>
+            <p style="text-align: center;">Seu carrinho está vazio. Adicione alguns cookies!</p>
+        
+        <a href="{{ url_for('vitrine.home') }}" class="back-link">Continuar Comprando</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmação de Pedido</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="confirmation-box">
+        <h2>🎉 Pedido Confirmado!</h2>
+        <p>Seu pedido número **#{{ pedido_id }}** foi processado com sucesso.</p>
+        <p>Aguarde atualizações de status de entrega (rastreamento).</p>
+        <a href="{{ url_for('vitrine.home') }}" class="back-link">Voltar à Vitrine</a>
+    </div>
+</body>
+</html>
