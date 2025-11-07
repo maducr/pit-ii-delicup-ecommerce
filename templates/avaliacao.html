@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Avaliação do Produto - {{ produto.nome }} | DeliCup</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/avaliacao.css') }}"> 
+</head>
+<body>
+    <header>
+        <h1>Avalie o Cupcake: {{ produto.nome }}</h1>
+        <nav>
+            <a href="{{ url_for('vitrine.detalhes_produto', produto_id=produto.id) }}" class="nav-link">Voltar ao Produto</a> |
+            <a href="{{ url_for('vitrine.home') }}" class="nav-link">Vitrine</a>
+        </nav>
+    </header>
+
+    <div class="avaliacao-container">
+        
+        <section class="nova-avaliacao">
+            <h2>Deixe sua Opinião</h2>
+            <p>Sua opinião ajuda outros clientes a fazerem suas escolhas[cite: 320].</p>
+            
+            <form method="POST" action="{{ url_for('produto.enviar_avaliacao', produto_id=produto.id) }}">
+                
+                <div class="form-grupo">
+                    <label for="nota">Nota (1 a 5 Estrelas):</label>
+                    <select id="nota" name="nota" required>
+                        <option value="5">5 Estrelas - Excelente</option>
+                        <option value="4">4 Estrelas - Muito Bom</option>
+                        <option value="3">3 Estrelas - Bom</option>
+                        <option value="2">2 Estrelas - Razoável</option>
+                        <option value="1">1 Estrela - Ruim</option>
+                    </select>
+                </div>
+                
+                <div class="form-grupo">
+                    <label for="comentario">Comentário (Opcional):</label>
+                    <textarea id="comentario" name="comentario" rows="4" placeholder="Escreva seu comentário sobre o produto..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn-submit">Enviar Avaliação</button>
+            </form>
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </section>
+
+        <hr>
+
+        <section class="avaliacoes-existentes">
+            <h2>Avaliações dos Clientes (Média: {{ media_avaliacoes|default('Sem Avaliações') }})</h2>
+            
+            {% if avaliacoes %}
+                <ul class="lista-avaliacoes">
+                    {% for avaliacao in avaliacoes %}
+                        <li class="avaliacao-item">
+                            <p class="avaliacao-cliente">**Cliente:** {{ avaliacao.nome_cliente }}</p>
+                            <p class="avaliacao-nota">**Nota:** {{ '★' * avaliacao.nota }} ({{ avaliacao.nota }}/5)</p>
+                            <p class="avaliacao-data">Em: {{ avaliacao.data_avaliacao }}</p>
+                            
+                            {% if avaliacao.comentario %}
+                                <blockquote class="avaliacao-comentario">"{{ avaliacao.comentario }}"</blockquote>
+                            {% endif %}
+                            
+                            {% if avaliacao.pode_editar %}
+                                <a href="{{ url_for('produto.editar_avaliacao', avaliacao_id=avaliacao.id) }}" class="btn-pequeno">Editar</a>
+                                <a href="{{ url_for('produto.excluir_avaliacao', avaliacao_id=avaliacao.id) }}" class="btn-pequeno btn-alerta">Excluir</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Nenhuma avaliação encontrada para este produto ainda. Seja o primeiro a opinar!</p>
+            {% endif %}
+        </section>
+        
+    </div>
+
+    <footer>
+        <p>&copy; DeliCup. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
