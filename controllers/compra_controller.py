@@ -52,18 +52,26 @@ def carrinho():
     carrinho_itens_raw = session.get('carrinho', [])
     
     produtos_no_carrinho = []
+    total_geral = 0.0
     
     for item in carrinho_itens_raw:
         produto_db = Produto.buscar_por_id(item['id_produto']) 
+        
+        subtotal_item = item['quantidade'] * item['preco_unitario']
+        
+        total_geral += subtotal_item
         
         produtos_no_carrinho.append({
             'nome': produto_db.nome if produto_db else f"Produto ID {item['id_produto']}",
             'quantidade': item['quantidade'],
             'preco_unitario': item['preco_unitario'],
-            'id_produto': item['id_produto']
+            'id_produto': item['id_produto'],
+            'subtotal': subtotal_item
         })
         
-    return render_template('carrinho.html', carrinho=produtos_no_carrinho)
+    return render_template('carrinho.html', 
+                           carrinho=produtos_no_carrinho,
+                           total=total_geral)
 
 @compra_bp.route('/finalizar_compra', methods=['POST'])
 def finalizar_compra():
