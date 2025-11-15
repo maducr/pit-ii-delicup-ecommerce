@@ -10,28 +10,19 @@
         <h1>DeliCup - Cupcakes Gourmet</h1>
         <p>Escolha seu sabor favorito e faça seu pedido!</p>
         <nav>
-            {# BLOCO DE NAVEGAÇÃO DINÂMICO #}
             {% if logged_in %}
-                {# Usuário Logado: Mostra boas-vindas, Carrinho e Sair #}
                 <span class="nav-welcome">Bem-vindo(a), {{ username }}!</span> |
-                
-                {# Link do Carrinho #}
                 <a href="{{ url_for('compra.carrinho') }}" class="nav-link">
                     Carrinho ({{ carrinho_count }})
                 </a> |
-                
-                {# Link de Logout #}
                 <a href="{{ url_for('auth.logout') }}" class="nav-link">Sair</a>
             {% else %}
-                {# Usuário Deslogado: Mostra Login e Cadastro #}
                 <a href="{{ url_for('auth.login') }}" class="nav-link">Fazer Login</a> |
                 <a href="{{ url_for('auth.cadastro') }}" class="nav-link">Cadastrar-se</a>
             {% endif %}
-            {# FIM DO BLOCO DE NAVEGAÇÃO #}
         </nav>
     </header>
 
-    {# BLOCO: Exibe mensagens flash #}
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             <div class="flash-container">
@@ -43,39 +34,39 @@
             </div>
         {% endif %}
     {% endwith %}
-    {# FIM DO BLOCO DE MENSAGENS #}
 
     <h2>Cupcakes Disponíveis</h2>
     <div class="vitrine">
         {% if produtos %}
             {% for produto in produtos %}
                 <div class="cupcake-card">
+                    <a href="/produto/{{ produto.id }}" class="link-detalhes-produto">
+                        
+                        <img src="{{ url_for('static', filename=produto.imagem_url) }}" 
+                             alt="Imagem do {{ produto.nome }}" 
+                             class="cupcake-image">
+                        
+                        <h3>{{ produto.nome }}</h3>
+                        
+                        <p class="avaliacao">
+                            Nota: {{ produto.media_avaliacao | default('N/A') }}
+                        </p>
+                        
+                        <p class="descricao">{{ produto.descricao | default("Descrição indisponível.") }}</p>
+                    </a>
                     
-                    {# Informações do Produto #}
-                    <h3>{{ produto.nome }}</h3>
-                    <p class="descricao">{{ produto.descricao | default("Descrição indisponível.") }}</p>
                     <p class="estoque">Estoque: {{ produto.estoque }}</p>
                     
-                    {# BLOCO: Footer com Flexbox para Preço e Botão de Ação #}
                     <div class="card-footer-action">
-                        {# 1. Preço #}
                         <p class="price">R$ {{ "%.2f"|format(produto.preco) }}</p>
                         
-                        {# 2. Formulário para ADICIONAR AO CARRINHO #}
                         <form method="POST" action="{{ url_for('compra.adicionar_carrinho') }}" class="compra-form"> 
                             <input type="hidden" name="id_produto" value="{{ produto.id }}">
                             <input type="hidden" name="quantidade" value="1"> 
-                            
-                            {# CORREÇÃO CRÍTICA AQUI: Enviar apenas o número com ponto decimal, sem R$ #}
                             <input type="hidden" name="preco_unitario" value="{{ "%.2f"|format(produto.preco) }}">
-                            
-                            {# Botão Adicionar #}
                             <button type="submit" class="btn-adicionar">+</button> 
                         </form>
                     </div>
-                    
-                    {# Link de Detalhes (Escondido no CSS) #}
-                    <a href="/produto/{{ produto.id }}" class="btn-detalhes">Ver Detalhes</a>
                 </div>
             {% endfor %}
         {% else %}
